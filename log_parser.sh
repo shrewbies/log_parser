@@ -6,9 +6,9 @@
 
 usage() { echo "Usage: script.sh -s <hub-scan-file> -j <hub-jobrunner-file> || script.sh -l (parsing a running Hub server)" 1>&2; exit 1; }
 
-scan_info () { awk '$7 ~ /Document/ && $11 ~ /associated/ { print "Code Location Name:" $14, "Code Location ID:" $19}' $s; }
+scan_info () { awk '$11 ~ /Document/ && $15 ~ /associated/ { print "Code Location Name:" $18, "Code Location ID:" $23}' $s; }
 
-live_info () { docker logs $(docker ps -qf label=com.docker.swarm.service.name=hub_scan) 2>&1 | awk '$7 ~ /Document/ && $11 ~ /associated/ { print "Code Location Name:" $14, "Code Location ID:" $19}'; }
+live_info () { docker logs $(docker ps -qf label=com.docker.swarm.service.name=hub_scan) 2>&1 | awk '$11 ~ /Document/ && $15 ~ /associated/ { print "Code Location Name:" $18, "Code Location ID:" $23}'; }
 
 
 if [[ $1 == "" ]]; then
